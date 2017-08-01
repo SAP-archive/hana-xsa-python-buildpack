@@ -1,0 +1,5 @@
+SEQUENCE "tempId"
+INCREMENT BY 1
+START WITH 2
+RESET BY
+SELECT IFNULL(MAX("tempId"), 0) + 1 FROM "sensors.temp"

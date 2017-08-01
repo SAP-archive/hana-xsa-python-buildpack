@@ -1,0 +1,19 @@
+{
+  "dependencies": {
+    "@sap/xsjs": "1.13.1",
+    "@sap/xsenv": "1.2.6"
+  },
+  "description": "XSJS ODATA",
+  "devDependencies": {
+  },
+  "files": [],
+  "main": "server.js",
+  "name": "js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": "6.x"
+  },
+  "version": "1.0.0"
+}

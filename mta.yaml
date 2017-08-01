@@ -1,0 +1,60 @@
+ID: hana_xsa_python_buildpack
+_schema-version: '2.0'
+description: Multi-Target Application using Python module and associated Python Buildpack
+version: 0.0.1
+
+modules:
+ - name: db
+   type: hdb
+   path: db
+   requires:
+    - name: hdi-container
+
+
+ - name: web
+   type: html5
+   path: web
+   parameters:
+      memory: 96MB
+      disk: 256M
+   requires: 
+    - name: mta-python-uaa
+    - name: js_api
+      group: destinations
+      properties:
+        name: js_be
+        url: ~{url}
+        forwardAuthToken: true
+    - name: python_api
+      group: destinations
+      properties:
+        name: python_be
+        url: ~{url}
+        forwardAuthToken: true
+
+
+ - name: js
+   type: nodejs
+   path: js
+   parameters:
+      memory: 96MB
+      disk: 256M
+   requires:
+    - name: mta-python-uaa
+    - name: hdi-container
+   provides:
+    - name: js_api
+      properties:
+         url: ${default-url}
+    - name: python_api
+      properties:
+         url: ${default-url}
+
+resources:
+ - name: hdi-container
+   properties:
+      hdi-container-name: ${service-name}
+   type: com.sap.xs.hdi-container
+ - name: mta-python-uaa
+   type: com.sap.xs.uaa
+   

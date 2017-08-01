@@ -1,0 +1,6 @@
+Flask
+gunicorn
+pyhdb
+python_jwt
+pycrypto
+jws

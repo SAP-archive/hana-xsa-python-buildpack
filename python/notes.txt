@@ -1,0 +1,95 @@
+Handy notes around all this.
+
+One thing we want to strive for is to have xs-a buildpack parity with the cf python buildpack.
+
+As of 2017-05-10 this is what is available at https://api.cf.us10.hana.ondemand.com
+
+python_buildpack        6          true      false    python_buildpack-cached-v1.5.17.zip
+
+https://github.com/cloudfoundry/python-buildpack/releases/tag/v1.5.17
+
+Packaged binaries:
+
+name	version	cf_stacks
+python	2.7.12	cflinuxfs2
+python	2.7.13	cflinuxfs2
+python	3.3.5	cflinuxfs2
+python	3.3.6	cflinuxfs2
+python	3.4.5	cflinuxfs2
+python	3.4.6	cflinuxfs2
+python	3.5.2	cflinuxfs2
+python	3.5.3	cflinuxfs2
+python	3.6.0	cflinuxfs2
+python	3.6.1	cflinuxfs2
+libffi	3.2.1	cflinuxfs2
+libmemcache	1.0.18	cflinuxfs2
+Default binary versions:
+
+name	version
+*python	2.7.13
+
+
+In the XS-A sap_python_buildpack we're supplying these versions.
+
+*python-2.7.13
+python-3.4.4  tested
+python-3.5.0  tested
+
+
+My old run_as_pyton script.  This has been replaced by the Jenkinsfile_master.txt
+
+#!/bin/bash
+echo ""
+echo "Run As Python Starting..."
+echo ""
+
+USER="XSA_DEV"
+MAGIC="klqh96msgfjiijux"
+PROJ="mta_python"
+BASE=$USER"-"$MAGIC"-"$PROJ
+APP=$BASE"-python"
+HDISVC=$BASE"-hdi-container"
+UAASVC="my-uaa"
+MEM="32M"
+
+echo "APP = "$APP
+echo "HCI = "$HDISVC
+echo "UAA = "$UAASVC
+
+echo ""
+echo "Pulling latest GIT code changes..."
+echo ""
+git pull
+
+echo ""
+echo "Pushing $APP app..."
+echo ""
+xs push $APP -p ./ -m $MEM
+
+echo ""
+echo "Binding to the HDI service...$HDISVC"
+echo ""
+xs bind-service $APP $HDISVC
+
+echo ""
+echo "Binding to the UAA service...$UAASVC"
+echo ""
+xs bind-service $APP $UAASVC
+
+echo ""
+echo "Restarting $APP app..."
+echo ""
+xs restart $APP
+
+echo ""
+echo "Dumping $APP apps environment..."
+echo ""
+xs env $APP
+
+echo "Run As Python Finished."
+echo ""
+xs app $APP --urls
+
+
+
+

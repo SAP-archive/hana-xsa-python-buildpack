@@ -1,0 +1,8 @@
+---
+applications:
+- name: myapp
+  memory: 128MB
+  disk_quota: 256MB
+  random-route: true
+  buildpack: sap_python_buildpack
+  command: python hello.py
