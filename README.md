@@ -110,7 +110,7 @@ tools/build.sh
 This will build the python module and then bind it to the uaa and hdi-container.  The first time the python buildpack is run it will read the VERSION file in it's folder and download the python source code and build it.  Subsequent runs will skip these steps.  It will then reconfigure the app-router to use the new python modules details in the destination.  You can check this by inspecting the environment of the app-router (USER-magic-web) app.
 
 ```
-xs env
+xs a | grep web | cut -d ' ' -f 1 | while read -r line ; do xs env $line | grep destinations ; done
 ```
 
 Now when you click on the python links, they should not result in 404 errors as before.  Check the notes in the tools/build.sh script for details and the code in the python/server.py for comments on the python module's responsibilities.
