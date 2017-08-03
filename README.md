@@ -24,6 +24,10 @@ zypper install python3
 pip install -U pip setuptools
 zypper install libffi-devel
 zypper install openssl-devel
+zypper install readline-devel
+zypper install sqlite3-devel
+zypper install ncurses-devel
+zypper install xz-devel
 ```
 
 It is assumed that you've cloned this repo into a folder that resides on the HANA server.
