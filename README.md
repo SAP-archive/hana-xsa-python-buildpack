@@ -113,7 +113,7 @@ Now when you click on the python links, they should not result in 404 errors as 
 
 ### Configuration
 
-At the buildpack compile stage (invoked during a push operation or as part of a deploy), the buildpack will read the blah file located in top folder of the python module source.  It then determines if that version is already compiled and if not, pulls the required source from the python source repository and attempts to build it.  If it has been successfully built before, this step is skipped.
+At the buildpack compile stage (invoked during a push operation or as part of a deploy), the buildpack will read the python/runtime.txt file located in top folder of the python module source.  It then determines if that version is already compiled and if not, pulls the required source from the python source repository and attempts to build it.  If it has been successfully built before, this step is skipped.
 
 
 ### Limitations
@@ -121,9 +121,10 @@ At the buildpack compile stage (invoked during a push operation or as part of a 
 This buildpack has been tested in online mode with the following Python versions on Linux based systems.
 
 Python 2.7.13 (last know version in the Python2 series)
+
 Python 3.6.2 (current stable version)
 
-If you require a different version, specifiy it in the blah file as described in the configuration section.
+If you require a different python version, specifiy it in the python/runtime.txt file as described in the configuration section.
 
 Again as mentioned at the top of this README, this buildpack is for HANA XS Advanced usage only.
 
@@ -136,20 +137,6 @@ No known issues exist at this time.
 This buildpack is considered experimental and therefore does not qualify for SAP standard or paid support.  Please use the community support pages found at [SAP Community Network](https://www.sap.com/community.html) and search with keywords "python" and "buildpack" to locate the latest information.
 
 SAP is currently evaluating it's support position in regard to the python language and may support it in an official capacity in the future.
-
-
-### Contributing
-
-Details on how external developers can contribute to your code should be posted here.  
-
-[Optional] If your project is only updated by SAP employees, is only accepting bug reports, or is provided "as-is", then this section is optional and can be omitted.
-
-### To-Do 
-
-Details on any expected changes in later versions.
-
-[Optional] If your project is released "as-is", or you know of no upcoming changes, this section can be omitted.
-
 
 
 ### License
