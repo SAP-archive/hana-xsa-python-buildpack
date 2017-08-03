@@ -134,10 +134,7 @@ No known issues exist at this time.
 
 ### How to obtain support
 
-This buildpack is considered experimental and therefore does not qualify for SAP standard or paid support.  Please use the community support pages found at [SAP Community Network](https://www.sap.com/community.html) and search with keywords "python" and "buildpack" to locate the latest information.
-
-SAP is currently evaluating it's support position in regard to the python language and may support it in an official capacity in the future.
-
+This buildpack is considered experimental and therefore does not qualify for SAP standard or paid support.  Please use the community support pages found at the [SAP Community Network](https://www.sap.com/community.html) and search with keywords "python" and "buildpack" to locate the latest information.
 
 ### License
 
