@@ -126,15 +126,16 @@ This buildpack has been tested in online mode with the following Python versions
 
 Python 2.7.13 (last know version in the Python2 series)
 
-Python 3.6.2 (current stable version)
-
 If you require a different python version, specifiy it in the python/runtime.txt file as described in the configuration section.
 
 Again as mentioned at the top of this README, this buildpack is for HANA XS Advanced usage only.
 
 ### Known Issues
 
-No known issues exist at this time.
+Python 3.6.2 (current stable version) has an issue with python_jwt with UnicodeDecodeError.
+
+May need to bring python-jwt local.  See https://github.com/brianloveswords/python-jws
+
 
 ### How to obtain support
 
