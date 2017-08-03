@@ -6,6 +6,8 @@ js_url="$(xs app $js_app --urls)"
 
 echo "JS_URL: $js_url"
 
+echo "Pushing $python_app using my_python_buildpack."
+
 xs push $python_app -p python -m $python_mem -b my_python_buildpack
 
 python_url="$(xs app $python_app --urls)"

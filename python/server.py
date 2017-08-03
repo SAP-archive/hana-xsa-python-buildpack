@@ -19,14 +19,18 @@ app = Flask(__name__)
 # Get port from environment variable or choose 9099 as local default
 port = int(os.getenv("PORT", 9099))
 
+# This module's Flask webserver will respond to these three routes (URL paths)
+# If there is no path then just return Hello World and this module's instance number
 @app.route('/')
 def hello_world():
     return 'Hello World! I am instance ' + str(os.getenv("CF_INSTANCE_INDEX", 0))
 
+# If there is a request for a python/test, return Testing message and module's instance number
 @app.route('/python/test')
 def testing_world():
     return 'Testing!!!xyz I am instance ' + str(os.getenv("CF_INSTANCE_INDEX", 0))
 
+# If there is a request for a python/test2, return Testing message and then check JWT and connect to the data service and retrieve some data
 @app.route('/python/test2')
 def testing2_world():
     output = 'Testing More! \n'
@@ -36,11 +40,12 @@ def testing2_world():
     svcs_json = str(os.getenv("VCAP_SERVICES", 0))
     svcs = json.loads(svcs_json)
 
-	# Verify the JWT before proceeding. or refuse to process the request.
-	# https://jwt.io/ JWT Debugger Tool and libs for all languages
+    # Verify the JWT before proceeding. or refuse to process the request.
+    # https://jwt.io/ JWT Debugger Tool and libs for all languages
     # https://github.com/jpadilla/pyjwt/
     # https://github.com/davedoesdev/python-jwt
 
+    # From the vcap_services environment variable pull out these things for later.
     vkey = svcs["xsuaa"][0]["credentials"]["verificationkey"]
     secret = svcs["xsuaa"][0]["credentials"]["clientsecret"]
 
@@ -57,6 +62,7 @@ def testing2_world():
     #import jwt
     #output += 'req_auth = ' + req_auth + '\n'
 
+    #Check to see if the request has an authorization header and if it starts with "Bearer "
     if req_auth:
         if req_auth.startswith("Bearer "):
             output += 'JWT Authorization is of type Bearer! \n'
@@ -67,6 +73,7 @@ def testing2_world():
 
     output += '\n'
 
+    #If it looks like the right type of authoriztion header, grab it's contents.
     if req_auth:
         jwtoken = req_auth[7:]
 
@@ -74,6 +81,7 @@ def testing2_world():
         pub_pem = "-----BEGIN PUBLIC KEY-----\n" + vkey[26:-24] + "\n-----END PUBLIC KEY-----\n"
         #output += 'pub_pem = ' + pub_pem + '\n'
 
+	# Manipulate the pem key so that we can verify it.
         pub_key = RSA.importKey(pub_pem)
         (header, claim, sig) = jwtoken.split('.')
         header = jws.utils.from_base64(header)
@@ -88,7 +96,10 @@ def testing2_world():
 
     output += '\n'
 
+    # This module should only proced with any further execution if the JWT has been verified.
+    # In this example we blindly continue, but this is not the best practice.
 
+    # Grab information from the vcap_services about the database connection
     schema = svcs["hana"][0]["credentials"]["schema"]
     user = svcs["hana"][0]["credentials"]["user"]
     password = svcs["hana"][0]["credentials"]["password"]
@@ -106,16 +117,23 @@ def testing2_world():
     output += 'driver: ' + driver + '\n'
 
     output += '\n'
+    # Connect to the python HANA DB driver using the connection info
     connection = pyhdb.connect(host,int(port),user,password)
+    # Prep a cursor for SQL execution
     cursor = connection.cursor()
+    # Form an SQL statement to retrieve some data
     cursor.execute('SELECT "tempId", "tempVal", "ts", "created" FROM "' + schema + '"."sensors.temp"')
+    # Execute the SQL and capture the result set
     sensor_vals = cursor.fetchall()
 
+    # Loop through the result set and output
     for sensor_val in sensor_vals:
         output += 'sensor_val: ' + str(sensor_val[1]) + ' at: ' + str(sensor_val[2]) + '\n'
 
+    # Close the DB connection
     connection.close()
 
+    # Return the results
     return output
 
 if __name__ == '__main__':
