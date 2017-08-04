@@ -132,10 +132,13 @@ Again as mentioned at the top of this README, this buildpack is for HANA XS Adva
 
 ### Known Issues
 
-Python 3.6.2 (current stable version) has an issue with python_jwt with UnicodeDecodeError.
+Python 3.6.2 (current stable version) has an issue with python_jws with UnicodeDecodeError.
 
-May need to bring python-jwt local.  See https://github.com/brianloveswords/python-jws
+In order to overcome this issue, I cloned 
 
+**https://github.com/brianloveswords/python-jws** to **https://github.com/alundesap/python-jws**
+
+and adjusted the setup.py file.  In order to override the standard PIP behavior, I modifiled the **python/requirements.txt** file and replaced **jws** with **git+https://github.com/alundesap/python-jws.git/#egg=jws** and moved it before **python_jwt** since python_jwt also requires jws.
 
 ### How to obtain support
 
