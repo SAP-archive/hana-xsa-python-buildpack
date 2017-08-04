@@ -9,6 +9,9 @@ echo "JS_URL: $js_url"
 echo "Pushing $python_app using my_python_buildpack."
 
 xs push $python_app -p python -m $python_mem -b my_python_buildpack
+#xs push $python_app -p python -m $python_mem -b sap_python_buildpack
+
+#exit 0
 
 python_url="$(xs app $python_app --urls)"
 
@@ -45,9 +48,17 @@ xs restage $web_app
 xs restart $web_app
 
 echo "XSA Build Python Finished"
-
+echo ""
+echo "js_module : $js_app : $js_url"
+echo "python_module : $python_app : $python_url"
+echo ""
 echo "To see the routing destinations of your app-router, run this command."
-
-echo "xs env $web_app"
+echo "xs env $web_app | grep destinations"
+echo ""
+xs env $web_app | grep destinations
+echo ""
+echo "web_module : $web_app"
+xs app $web_app --urls
+echo ""
 
 exit 0
