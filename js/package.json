@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@sap/xsjs": "1.13.1",
+    "@sap/xsjs": "1.16.2",
     "@sap/xsenv": "1.2.6"
   },
   "description": "XSJS ODATA",
