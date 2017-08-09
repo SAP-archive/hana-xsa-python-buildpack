@@ -1,8 +1,8 @@
 #!/bin/bash -x
 #Modify these variable to match your situation/needs
 
-user="XSA_ADMIN"
-magic="d0y6dfwinumyvhiy"
+user="XSA_DEV"
+magic="insertyourmagichere"
 proj="hana-xsa-python-buildpack" #Only if you've changed the project name
 
 #=== Don't change things below this line ===
