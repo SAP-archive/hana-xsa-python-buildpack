@@ -124,9 +124,13 @@ At the buildpack compile stage (invoked during a push operation or as part of a 
 
 This buildpack has been tested in online mode with the following Python versions on Linux based systems.
 
+
 Python 2.7.11 
+
 Python 2.7.13 (last known version in the Python2 series)
+
 Python 3.6.2 (current stable version) as of 2017-09-07
+
 
 If you require a different python version, specifiy it in the python/runtime.txt file as described in the configuration section.
 
