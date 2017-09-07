@@ -195,17 +195,54 @@ if [ ! -f $pytgz ];then
 	echo BUILDPACK: PYTHONPATH=$PYTHONPATH
 	echo
 
+	echo "BUILDPACK: Yo!"
+	echo "pwd:"
+
+	pwd
+
+	echo "BUILDPACK: Copying files from resources/modules/*.tar.gz"
+	echo $BPDIR/resources/modules/*.tar.gz
+	echo
+
 	for f in $BPDIR/resources/modules/*.tar.gz
 	do
+		echo "  BUILDPACK: cp $f work"
 		cp $f work
 		fname_tar_gz=${f##*/}
 		fname_tar=${fname_tar_gz%.*}
 		
+		echo "  BUILDPACK: Unzip"
+		echo "  BUILDPACK: gzip -d -f work/$fname_tar_gz"
 		gzip -d -f work/$fname_tar_gz
-		tar -xf work/$fname_tar -C work                   
+		echo "  BUILDPACK: Xtract"
+		echo "  BUILDPACK: tar -xf work/$fname_tar -C work"
+		tar -xf work/$fname_tar -C work
 	done
 
+	echo "BUILDPACK: Copying files from resources/modules/*.zip"
+	echo $BPDIR/resources/modules/*.zip
+	echo
+
+	pwd
+
+	for f in $BPDIR/resources/modules/*.zip
+	do
+		echo "  BUILDPACK: cp $f work"
+		cp $f work
+		fname_zip=${f##*/}
+
+		echo "  BUILDPACK: Unzip"
+		pushd work
+		echo "  BUILDPACK: unzip -q -u $fname_zip"
+		unzip -q -u $fname_zip
+		popd
+	done
+
+	echo "BUILDPACK: Build setuptools"
+	pwd
+
 	pushd work/setuptools*
+		echo "BUILDPACK: $pyexe setup.py build install"
 		$pyexe setup.py build install
 		setupexit=$?
 		if [ $setupexit -ne 0 ];then
@@ -216,7 +253,10 @@ if [ ! -f $pytgz ];then
 		fi   
 	popd
 
+	echo "BUILDPACK: Build pip"
+
 	pushd work/pip*
+		echo "BUILDPACK: $pyexe setup.py build install"
 		$pyexe setup.py build install
 		setupexit=$?
 		if [ $setupexit -ne 0 ];then
