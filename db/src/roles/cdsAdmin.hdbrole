@@ -1,0 +1,12 @@
+{
+
+	"role": {
+
+		"name": "hana-xsa-python-buildpack.db.roles::cdsAdmin",
+
+		"schema_privileges": [{
+			"privileges": ["EXECUTE", "CREATE TEMPORARY TABLE", "INSERT", "UPDATE", "DELETE", "DROP", "REFERENCES", "SELECT", "SELECT METADATA", "SELECT CDS METADATA"]
+		}]
+
+	}
+}
