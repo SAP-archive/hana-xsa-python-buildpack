@@ -17,6 +17,7 @@ The python buildpack will download the version of python in the VERSION file usi
 
 ```
 zypper install wget
+zypper install git-core
 zypper install --type pattern devel_basis
 zypper install tk-devel
 zypper install tcl-devel
