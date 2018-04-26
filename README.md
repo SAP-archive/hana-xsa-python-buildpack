@@ -1,7 +1,7 @@
 # HANA XS Advanced Python Buildpack
 
 ### IMPORTANT NOTICE!!!
-As of the release of The HANA Platform version 2 Service Pack 03 (April, 2018) and official python buildpack is provided as part of the standard set of supported language runtimes.  This python buildpack can be used with Service Pack 02 and earlier as needed, but the recommendation will be to upgrade to Service Pack 03 in order to utilize the full SAP support network.
+As of the release of The HANA Platform version 2 Service Pack 03 (April, 2018) an official python buildpack is provided as part of the standard set of supported language runtimes.  This python buildpack can be used with Service Pack 02 and earlier as needed, but the recommendation will be to upgrade to Service Pack 03 in order to utilize the full SAP support network.
 
 Information on the SP03 Python Buildpack can be found here: [The SAP HANA XS Advanced Python Run Time](https://help.sap.com/viewer/4505d0bdaf4948449b7f7379d24d0f0d/2.0.03/en-US/8d786ec8ab964145a7453c1f53f452db.html)
 
